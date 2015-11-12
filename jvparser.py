@@ -54,7 +54,7 @@ class JVParser:
         return gen_list
 
     def showresult(self):
-        #  Convert the string to list for further breakdown.
+        #  Convert the mathematical expression string to list for further breakdown.
         mylist = self.makelist()
 
         if len(mylist) == 1:
