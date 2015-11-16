@@ -117,6 +117,53 @@ def showresult(exp_list):
     return result
 
 
+def process_par(m_exp):
+    m_exp = m_exp[1:-1]
+    new_list = make_list(m_exp)
+    result = showresult(new_list)
+
+    return result
+
+
+def count_par(m_exp):
+    count_open = 0
+    for idx in range(len(m_exp)):
+        if m_exp[idx] == '(':
+            count_open += 1
+    return count_open
+
+
+def breakdown_par(m_exp):
+    count_open = count_par(m_exp)
+    result = 0
+    pos_open = 0
+    idx = 0
+    tmp_str = ''
+    if count_open > 1:
+        while True:
+            if count_par(m_exp) == 1:
+                break
+            print(idx)
+            if m_exp[idx] == '(':
+                pos_open = idx
+            elif m_exp[idx] == ')':
+                pos_close = idx
+                tmp_exp = m_exp[pos_open:pos_close+1]
+                if count_par(tmp_exp) > 1:
+                    tmp_str = breakdown_par(tmp_exp)
+                    m_exp.replace(tmp_exp, str(tmp_str))
+                elif count_par(tmp_exp) == 1:
+                    tmp_str = process_par(tmp_exp)
+                    m_exp.replace(tmp_exp, str(tmp_str))
+                    print(m_exp)
+            idx += 1
+        result = process_par(m_exp)
+    elif count_open == 1:
+        result = process_par(m_exp)
+
+    return result
+
+
 def jvparser(str_exp):
     new_list = make_list(str_exp)
     result = showresult(new_list)
@@ -133,3 +180,8 @@ def test_showresult():
 
 def test_jvparser():
     assert jvparser(math_exp) == 34
+
+
+if __name__ == '__main__':
+    input_str = '((4*2)+2)'
+    print(breakdown_par(input_str))
