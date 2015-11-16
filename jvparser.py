@@ -170,14 +170,12 @@ def breakdown_par(m_exp):
                 pos_close = idx
                 idx = 0
                 tmp_exp = tmp_m_exp[pos_open:pos_close+1]
-                print(tmp_exp)
                 if count_par(tmp_exp) > 1:
                     tmp_str = breakdown_par(tmp_exp)
                     tmp_m_exp = tmp_m_exp.replace(tmp_exp, tmp_str, 1)
                 elif count_par(tmp_exp) == 1:
                     tmp_str = process_par(tmp_exp)
                     tmp_m_exp = tmp_m_exp.replace(tmp_exp, str(tmp_str), 1)
-                    print(tmp_m_exp)
             else:
                 idx += 1
         result = tmp_m_exp
