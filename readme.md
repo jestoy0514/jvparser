@@ -1,4 +1,4 @@
-##jvparser
+####jvparser
 
 ###What is it?
 
@@ -26,3 +26,7 @@ and then execute the code below.
 
 Please find the file license.
 
+###Contact
+
+* Personal E-mail: *jessie@jvaolazo.net76.net*
+* Gmail: *jestoy.olazo@gmail.com*
