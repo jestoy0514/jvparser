@@ -131,5 +131,5 @@ def test_showresult():
     assert showresult(['4', '+', '5', '*', '6']) == 34
 
 
-def text_jvparser():
+def test_jvparser():
     assert jvparser(math_exp) == 34
