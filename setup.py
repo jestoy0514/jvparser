@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='jvparser',
-    version='1.1',
+    version='1.2',
     packages=[''],
     url='http://github.com/jestoy0514/jvparser',
     license='GNU General Public License Version 3',
