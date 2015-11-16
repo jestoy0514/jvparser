@@ -23,29 +23,7 @@ __author__ = 'Jesus Vedasto Olazo'
 __email__ = 'jessie@jvaolazo.net76.net'
 
 
-def jvparser(math_exp):
-    """
-
-    This is an eval like function that have the capabilities to
-    compute small mathematical expressions in a form of a string.
-    This was created for the purpose of creating simple calculators.
-    The mathematical expression pass through a loop to generate a list
-    for further breakdown and calculations until it reach only one
-    element in the list and return as a result in either of integer
-    type or float type.
-
-    Example:
-
-    >>> from jvparser import jvparser
-    >>>
-    >>> math_exp = '4+5*2-3**6/4' # this a mathematical expression.
-    >>> result = jvparser(math_exp)
-    >>>
-    >>> print(result)
-    -168.25
-    >>>
-
-    """
+def make_list(math_exp):
     # Create a variable for converting the math expression string
     # into a list.
     exp_list = []
@@ -76,7 +54,10 @@ def jvparser(math_exp):
                 exp_list.append(math_exp[idx])
                 tmp_str = ''
     exp_list.append(tmp_str)
+    return exp_list
 
+
+def showresult(exp_list):
     # Declare the variable result to 0
     result = 0
     # This variable is for temporary storage of values from the
@@ -152,6 +133,35 @@ def jvparser(math_exp):
         del exp_list[pos-1:pos+2]
         exp_list.insert(pos-1, tmp_result)
         tmp_result = ''
+
+    return result
+
+
+def jvparser(math_exp):
+    """
+
+    This is an eval like function that have the capabilities to
+    compute small mathematical expressions in a form of a string.
+    This was created for the purpose of creating simple calculators.
+    The mathematical expression pass through a loop to generate a list
+    for further breakdown and calculations until it reach only one
+    element in the list and return as a result in either of integer
+    type or float type.
+
+    Example:
+
+    >>> from jvparser import jvparser
+    >>>
+    >>> math_exp = '4+5*2-3**6/4' # this a mathematical expression.
+    >>> result = jvparser(math_exp)
+    >>>
+    >>> print(result)
+    -168.25
+    >>>
+
+    """
+    new_list = make_list(math_exp)
+    result = showresult(new_list)
 
     return result
 
