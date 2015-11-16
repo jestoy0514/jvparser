@@ -7,6 +7,6 @@ setup(
     url='http://github.com/jestoy0514/jvparser',
     license='GNU General Public License Version 3',
     author='Jesus Vedasto Olazo',
-    author_email='jestoy.olazo@gmail.com',
+    author_email='jessie@jvaolazo.net76.net.com',
     description='A simple module for mathematical expression calculations.'
 )
