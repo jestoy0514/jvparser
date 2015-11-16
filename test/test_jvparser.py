@@ -132,4 +132,4 @@ def test_showresult():
 
 
 def text_jvparser():
-    assert jvparser(math_exp)
+    assert jvparser(math_exp) == 34
