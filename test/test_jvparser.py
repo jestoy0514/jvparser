@@ -117,9 +117,19 @@ def showresult(exp_list):
     return result
 
 
+def jvparser(str_exp):
+    new_list = make_list(str_exp)
+    result = showresult(new_list)
+    return result
+
+
 def test_make_list():
     assert make_list(math_exp) == ['4', '+', '5', '*', '6']
 
 
 def test_showresult():
     assert showresult(['4', '+', '5', '*', '6']) == 34
+
+
+def text_jvparser():
+    assert jvparser(math_exp)
