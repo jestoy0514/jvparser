@@ -18,151 +18,157 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__version__ = '1.0'
+__version__ = '1.1'
+__author__ = 'Jesus Vedasto Olazo'
+__email__ = 'jessie@jvaolazo.net76.net'
 
 
-class JVParser:
+def jvparser(math_exp):
+    """
 
-    def __init__(self, num_str):
-        self.num_str = num_str
+    This is an eval like function that have the capabilities to
+    compute small mathematical expressions in a form of a string.
+    This was created for the purpose of creating simple calculators.
+    The mathematical expression pass through a loop to generate a list
+    for further breakdown and calculations until it reach only one
+    element in the list and return as a result in either of integer
+    type or float type.
 
-    def makelist(self):
-        if self.num_str[0] == '-':
-            self.num_str = self.num_str[1:]
-            temp_chars = "-"
-        else:
-            temp_chars = ''
-        gen_list = []
-        for char in self.num_str:
-            if char in '0123456789.':
-                temp_chars = temp_chars + char
-            elif char in '*/-+':
-                if temp_chars != '':
-                    gen_list.append(temp_chars)
-                    gen_list.append(char)
-                    temp_chars = ''
-                elif temp_chars == '':
-                    if char == '-':
-                        if gen_list[-1] == '+':
-                            del gen_list[-1:]
-                            gen_list.append(char)
-                        elif gen_list[-1] == '*' or gen_list[-1] == '/':
-                            temp_chars = '-'
-                        else:
-                            return None
-        gen_list.append(temp_chars)
-        return gen_list
+    Example:
 
-    def showresult(self):
-        #  Convert the mathematical expression string to list for further breakdown.
-        mylist = self.makelist()
+    >>> from jvparser import jvparser
+    >>>
+    >>> math_exp = '4+5*2-3**6/4' # this a mathematical expression.
+    >>> result = jvparser(math_exp)
+    >>>
+    >>> print(result)
+    -168.25
+    >>>
 
-        if len(mylist) == 1:
-            result = float(mylist[0])
-            if int(result) != 0:
-                if result/int(result) > 1:
-                    return result
-                elif result/int(result) == 1:
-                    return int(result)
+    """
+    # Create a variable for converting the math expression string
+    # into a list.
+    exp_list = []
+
+    # This option will check whether the start of the expression
+    # is negative/minus sign.
+    if math_exp[0] == '-':
+        tmp_str = '-'
+        math_exp = math_exp[1:]
+    else:
+        tmp_str = ''
+
+    # Loop through the math expression string and append the newly
+    # created list above.
+    for idx in range(len(math_exp)):
+        if math_exp[idx] in '0123456789.':
+            tmp_str += math_exp[idx]
+        elif math_exp[idx] in '*/+-':
+            if tmp_str == '':
+                if exp_list[-1] == '*':
+                    exp_list = exp_list[:-1]
+                    exp_list.append('**')
+                elif exp_list[-1] == '/':
+                    exp_list = exp_list[:-1]
+                    exp_list.append('//')
             else:
-                return result
+                exp_list.append(tmp_str)
+                exp_list.append(math_exp[idx])
+                tmp_str = ''
+    exp_list.append(tmp_str)
 
-        #  The oper variable will be used to determine which operator to use in the created sub equation.
-        oper = ""
-        #  Loop to the mylist to be able to breakdown it into smaller pieces.
-        while True:
-            counter = 0
-            #  Test if the below given operators is available in the sub equation.
-            #  If available it will generate the position of the operator and which operator will be using.
-            if "*" in mylist and "/" in mylist:
-                pos_mul = mylist.index("*")
-                pos_div = mylist.index("/")
-                if pos_mul < pos_div:
-                    pos = pos_mul
-                    oper = "mul"
-                else:
-                    pos = pos_div
-                    oper = "div"
-            elif "*" in mylist:
-                pos = mylist.index("*")
-                oper = "mul"
-            elif "/" in mylist:
-                pos = mylist.index("/")
-                oper = "div"
-            elif "+" in mylist and "-" in mylist:
-                pos_add = mylist.index("+")
-                pos_sub = mylist.index("-")
-                if pos_add < pos_sub:
-                    pos = pos_add
-                    oper = "add"
-                else:
-                    pos = pos_sub
-                    oper = "sub"
-            elif "+" in mylist:
-                pos = mylist.index("+")
-                oper = "add"
-            elif "-" in mylist:
-                pos = mylist.index("-")
-                oper = "sub"
+    # Declare the variable result to 0
+    result = 0
+    # This variable is for temporary storage of values from the
+    # calculations.
+    tmp_result = ''
+    # This is the list of operators the condition has to meet to
+    # be able to know whether the loop has to continue or not.
+    list_of_operators = ('**', '*', '/', '+', '-', '//')
+    while True:
+        # Declare a counter variable to count the operators avail.
+        # in the list.
+        counter = 0
+        for elem in exp_list:
+            if elem in list_of_operators:
+                counter += 1
 
-            #  Variable for remebering the possiton where the new value will be inserted inside mylist list.
-            rem_pos = pos - 1
+        # If the varible counter value is equal to zero, it convert
+        # the string result to float and check whether the result is
+        # a whole number or a decimal and return the result accordingly.
+        if counter == 0:
+            result = float(exp_list[0])
+            if result != 0:
+                if (result / int(result)) == 0:
+                    result = int(result)
+            elif result == 0:
+                result = int(result)
+            break
+        # Else if the counter is greater than zero. Perform the check
+        # for operators available and get the index of the elements
+        # and operators and perform the calculation and add it into
+        # the variable tmp_result.
+        if '**' in exp_list:
+            pos = exp_list.index('**')
+            tmp_result = str(float(exp_list[pos-1])**float(exp_list[pos+1]))
+        elif '//' in exp_list:
+            pos = exp_list.index('//')
+            tmp_result = str(float(exp_list[pos-1])//float(exp_list[pos+1]))
+        elif ('*' in exp_list) and ('/' in exp_list):
+            pos_mul = exp_list.index('*')
+            pos_div = exp_list.index('/')
+            if pos_mul < pos_div:
+                pos = pos_mul
+                tmp_result = str(float(exp_list[pos-1])*float(exp_list[pos+1]))
+            else:
+                pos = pos_div
+                tmp_result = str(float(exp_list[pos-1])/float(exp_list[pos+1]))
+        elif '*' in exp_list:
+            pos = exp_list.index('*')
+            tmp_result = str(float(exp_list[pos-1])*float(exp_list[pos+1]))
+        elif '/' in exp_list:
+            pos = exp_list.index('/')
+            tmp_result = str(float(exp_list[pos-1])/float(exp_list[pos+1]))
+        elif ('+' in exp_list) and ('-' in exp_list):
+            pos_add = exp_list.index('+')
+            pos_sub = exp_list.index('-')
+            if pos_add < pos_sub:
+                pos = pos_add
+                tmp_result = str(float(exp_list[pos-1])+float(exp_list[pos+1]))
+            else:
+                pos = pos_sub
+                tmp_result = str(float(exp_list[pos-1])-float(exp_list[pos+1]))
+        elif '+' in exp_list:
+            pos = exp_list.index('+')
+            tmp_result = str(float(exp_list[pos-1])+float(exp_list[pos+1]))
+        elif '-' in exp_list:
+            pos = exp_list.index('-')
+            tmp_result = str(float(exp_list[pos-1])-float(exp_list[pos+1]))
 
-            #  Operations which will be used in respect to variable oper.
-            ans = 0
-            if oper == "mul":
-                num1 = float(mylist[pos-1])
-                num2 = float(mylist[pos+1])
-                ans = str(num1 * num2)
-            elif oper == "div":
-                num1 = float(mylist[pos-1])
-                num2 = float(mylist[pos+1])
-                ans = str(num1 / num2)
-            elif oper == "add":
-                num1 = float(mylist[pos-1])
-                num2 = float(mylist[pos+1])
-                ans = str(num1 + num2)
-            elif oper == "sub":
-                num1 = float(mylist[pos-1])
-                num2 = float(mylist[pos+1])
-                ans = str(num1 - num2)
+        # Once the index and tmp_result is known, we have to delete the
+        # old entries and replace it with the new tmp_result base on the
+        # given index and set the tmp_result to empty string to use again
+        # in the calculation.
+        del exp_list[pos-1:pos+2]
+        exp_list.insert(pos-1, tmp_result)
+        tmp_result = ''
 
-            #  Delete the elements inside mylist to make way
-            #  to the newly created result.
-            del mylist[pos]
-            del mylist[pos]
-            del mylist[pos-1]
-
-            #  Insert the result of the operation in mylist.
-            mylist.insert(rem_pos, ans)
-
-            #  Loop through the mylist to record the number of operator inside.
-            for ind in range(len(mylist)):
-                if mylist[ind] in "*/+-":
-                    counter += 1
-
-            #  Test whether counter is equal to zero, if yes exit from the loop.
-            if counter == 0:
-                break
-
-        result = float(mylist[0])
-
-        if int(result) != 0:
-            if result/int(result) > 1:
-                return result
-            elif result/int(result) == 1:
-                return int(result)
-        else:
-            return result
+    return result
 
 
 def main():
-    given_string = "-6+89*7-65-3*55-6+33/4"
-    mparser = JVParser(given_string)
-    print('Mathematical Expression: ', given_string)
+    # Given mathematical expression.
+    math_exp = '4+5*2-3**6/4'
+    # Result generated by jvparser.
+    data1 = jvparser(math_exp)
+    # eval is only use for testing the results if it is the same value as
+    # jvparser.
+    data2 = eval(math_exp)
+    print('Mathematical Expression:', '"'+math_exp+'"')
     print()
-    print('JVParser Result: ', mparser.showresult())
-    print('Eval Result: ', eval(given_string))
+    print('jvparser() result:', data1)
+    print('eval() result:', data2)
 
+# Standard Boilerplate Template.
 if __name__ == '__main__':
     main()
