@@ -135,32 +135,34 @@ def count_par(m_exp):
 
 def breakdown_par(m_exp):
     count_open = count_par(m_exp)
+    tmp_m_exp = m_exp
     result = 0
     pos_open = 0
     idx = 0
-    tmp_str = ''
     if count_open > 1:
         while True:
-            if count_par(m_exp) == 1:
+            if count_par(tmp_m_exp) == 1:
                 break
-            print(idx)
-            if m_exp[idx] == '(':
+            if tmp_m_exp[idx] == '(':
                 pos_open = idx
-            elif m_exp[idx] == ')':
+                idx += 1
+            elif tmp_m_exp[idx] == ')':
                 pos_close = idx
-                tmp_exp = m_exp[pos_open:pos_close+1]
+                idx = 0
+                tmp_exp = tmp_m_exp[pos_open:pos_close+1]
+                print(tmp_exp)
                 if count_par(tmp_exp) > 1:
                     tmp_str = breakdown_par(tmp_exp)
-                    m_exp.replace(tmp_exp, str(tmp_str), 1)
+                    tmp_m_exp = tmp_m_exp.replace(tmp_exp, tmp_str, 1)
                 elif count_par(tmp_exp) == 1:
                     tmp_str = process_par(tmp_exp)
-                    m_exp.replace(tmp_exp, str(tmp_str), 1)
-                    print(m_exp)
-            idx += 1
-        result = process_par(m_exp)
+                    tmp_m_exp = tmp_m_exp.replace(tmp_exp, str(tmp_str), 1)
+                    print(tmp_m_exp)
+            else:
+                idx += 1
+        result = tmp_m_exp
     elif count_open == 1:
-        print(m_exp)
-        result = process_par(m_exp)
+        result = m_exp
 
     return result
 
@@ -183,6 +185,21 @@ def test_jvparser():
     assert jvparser(math_exp) == 34
 
 
+def test_process_par():
+    assert process_par("(4+5*3)") == 19
+
+
+def test_count_par():
+    assert count_par('(4+(3*4))') == 2
+
+
+def test_breakdown_par():
+    assert breakdown_par('(4+(3*4))') == '(4+12.0)'
+
+
 if __name__ == '__main__':
-    input_str = '((1+44)*2)'
-    print(breakdown_par(input_str))
+    input_str = '((1+44)*(1+1)+(4//4))'
+    answer = breakdown_par(input_str)
+    print(answer)
+    answer = process_par(answer)
+    print(answer)
