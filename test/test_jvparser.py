@@ -151,14 +151,15 @@ def breakdown_par(m_exp):
                 tmp_exp = m_exp[pos_open:pos_close+1]
                 if count_par(tmp_exp) > 1:
                     tmp_str = breakdown_par(tmp_exp)
-                    m_exp.replace(tmp_exp, str(tmp_str))
+                    m_exp.replace(tmp_exp, str(tmp_str), 1)
                 elif count_par(tmp_exp) == 1:
                     tmp_str = process_par(tmp_exp)
-                    m_exp.replace(tmp_exp, str(tmp_str))
+                    m_exp.replace(tmp_exp, str(tmp_str), 1)
                     print(m_exp)
             idx += 1
         result = process_par(m_exp)
     elif count_open == 1:
+        print(m_exp)
         result = process_par(m_exp)
 
     return result
@@ -183,5 +184,5 @@ def test_jvparser():
 
 
 if __name__ == '__main__':
-    input_str = '((4*2)+2)'
+    input_str = '((1+44)*2)'
     print(breakdown_par(input_str))
