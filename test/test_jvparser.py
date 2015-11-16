@@ -150,14 +150,12 @@ def breakdown_par(m_exp):
                 pos_close = idx
                 idx = 0
                 tmp_exp = tmp_m_exp[pos_open:pos_close+1]
-                print(tmp_exp)
                 if count_par(tmp_exp) > 1:
                     tmp_str = breakdown_par(tmp_exp)
                     tmp_m_exp = tmp_m_exp.replace(tmp_exp, tmp_str, 1)
                 elif count_par(tmp_exp) == 1:
                     tmp_str = process_par(tmp_exp)
                     tmp_m_exp = tmp_m_exp.replace(tmp_exp, str(tmp_str), 1)
-                    print(tmp_m_exp)
             else:
                 idx += 1
         result = tmp_m_exp
@@ -196,10 +194,3 @@ def test_count_par():
 def test_breakdown_par():
     assert breakdown_par('(4+(3*4))') == '(4+12.0)'
 
-
-if __name__ == '__main__':
-    input_str = '((1+44)*(1+1)+(4//4))'
-    answer = breakdown_par(input_str)
-    print(answer)
-    answer = process_par(answer)
-    print(answer)
