@@ -18,7 +18,7 @@ def make_list(m_exp):
     # Loop through the math expression string and append the newly
     # created list above.
     for idx in range(len(m_exp)):
-        if math_exp[idx] in '0123456789.':
+        if m_exp[idx] in '0123456789.':
             tmp_str += m_exp[idx]
         elif math_exp[idx] in '*/+-':
             if tmp_str == '':
@@ -30,7 +30,7 @@ def make_list(m_exp):
                     exp_list.append('//')
             else:
                 exp_list.append(tmp_str)
-                exp_list.append(math_exp[idx])
+                exp_list.append(m_exp[idx])
                 tmp_str = ''
     exp_list.append(tmp_str)
 
