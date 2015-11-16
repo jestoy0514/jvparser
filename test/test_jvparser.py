@@ -20,7 +20,7 @@ def make_list(m_exp):
     for idx in range(len(m_exp)):
         if m_exp[idx] in '0123456789.':
             tmp_str += m_exp[idx]
-        elif math_exp[idx] in '*/+-':
+        elif m_exp[idx] in '*/+-':
             if tmp_str == '':
                 if exp_list[-1] == '*':
                     exp_list = exp_list[:-1]
