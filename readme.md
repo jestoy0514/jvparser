@@ -15,12 +15,12 @@ and then execute the code below.
 
 ###How to use?
 
-`>>> from jvparser import jvparser`
-`>>>`
-`>>> math_exp = '4+5*2-3'`
-`>>> data = jvparser(math_exp)`
-`>>> print(data)`
-`11.0`
+`>>> from jvparser import jvparser`  
+`>>>`  
+`>>> math_exp = '4+5*2-3'`  
+`>>> data = jvparser(math_exp)`  
+`>>> print(data)`  
+`11.0`  
 
 ###License
 
