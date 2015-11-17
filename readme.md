@@ -25,7 +25,7 @@ and then execute the code below.
 
 ####License
 
-Please find the file license.
+Please find the license.txt file.
 
 ####Contact
 
