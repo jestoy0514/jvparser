@@ -166,8 +166,24 @@ def breakdown_par(m_exp):
 
 
 def jvparser(str_exp):
-    new_list = make_list(str_exp)
-    result = showresult(new_list)
+    result = 0
+    if str_exp[0] == '(':
+        if str_exp[-1] == ')':
+            result = breakdown_par(str_exp)
+            result = process_par(result)
+        elif str_exp[-1] != ')':
+            str_exp = '(' + str_exp + ')'
+            result = breakdown_par(str_exp)
+            result = process_par(result)
+    elif str_exp[0] != '(':
+        if '(' in str_exp:
+            str_exp = '(' + str_exp + ')'
+            result = breakdown_par(str_exp)
+            result = process_par(result)
+    else:
+        new_list = make_list(str_exp)
+        result = showresult(new_list)
+
     return result
 
 
