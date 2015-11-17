@@ -16,10 +16,10 @@ and then execute the code below.
 ####How to use?
 
 ```Python
->>>from jvparser import jvparser
->>>math_exp = '4+5*2-3'
->>>data = jvparser(math_exp)
->>>print(data)
+>>> from jvparser import jvparser
+>>> math_exp = '4+5*2-3'
+>>> data = jvparser(math_exp)
+>>> print(data)
 11.0
 ```
 
