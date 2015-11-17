@@ -11,7 +11,9 @@ an eval function without importing any additional module.
 Extract the archive and point to the location of *setup.py*
 and then execute the code below.
 
-`juan@juan-desktop:~/jvparser-1.3$ python3 setup.py install`
+```Terminal
+juan@juan-desktop:~/jvparser-1.3$ python3 setup.py install
+```
 
 ####How to use?
 
