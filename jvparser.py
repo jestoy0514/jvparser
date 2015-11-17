@@ -200,19 +200,26 @@ def jvparser(str_exp):
 
     """
     result = 0
+    # Check if the beginning of the expression is an open parenthesis.
     if str_exp[0] == '(':
+        # Check if the opening parenthesis has been closed at the end
+        # of the expression. If yes to if statement.
         if str_exp[-1] == ')':
             result = breakdown_par(str_exp)
             result = process_par(result)
+        # Do the elif statement if not.
         elif str_exp[-1] != ')':
             str_exp = '(' + str_exp + ')'
             result = breakdown_par(str_exp)
             result = process_par(result)
+    # If the beginning of the expression is not open parenthesis.
     elif str_exp[0] != '(':
+        # Check if any parenthesis is available somewhere in the expression.
         if '(' in str_exp:
             str_exp = '(' + str_exp + ')'
             result = breakdown_par(str_exp)
             result = process_par(result)
+    # Else will execute if and only if there is no parenthesis available.
     else:
         new_list = make_list(str_exp)
         result = showresult(new_list)
