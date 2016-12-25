@@ -18,9 +18,9 @@ juan@juan-desktop:~/jvparser-1.3$ python3 setup.py install
 ####How to use?
 
 ```Python
->>> from jvparser import jvparser
+>>> from jvparser.jvparser import solveIt
 >>> math_exp = '4+5*2-3'
->>> data = jvparser(math_exp)
+>>> data = solveIt(math_exp)
 >>> print(data)
 11.0
 ```
@@ -31,5 +31,5 @@ Please find the license.txt file.
 
 ####Contact
 
-* E-mail 1: *jessie@jvaolazo.net76.net*
+* E-mail 1: *jessie@jestoy.frihost.net*
 * E-mail 2: *jestoy.olazo@gmail.com*
